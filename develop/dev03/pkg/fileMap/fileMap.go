@@ -25,7 +25,7 @@ func (fm *FileMap) FillFileMap(filename string) error {
 	}
 	fileScanner := bufio.NewScanner(file)
 	for fileScanner.Scan() {
-		fm.data = append(fm.data, strings.Split(fileScanner.Text(), " "))
+		fm.data = append(fm.data, strings.Fields(fileScanner.Text()))
 	}
 	return nil
 }
