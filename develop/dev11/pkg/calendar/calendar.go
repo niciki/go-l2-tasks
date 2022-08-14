@@ -84,11 +84,11 @@ func (c *Calendar) GetEventsForTheMonth(q query.Query) ([]event.Event, error) {
 func (c *Calendar) GetEvents(q query.Query, t time.Duration) ([]event.Event, error) {
 	answ := make([]event.Event, 0)
 	c.m.RLock()
-	defer c.m.RUnlock()
 	_, ok := c.data[q.ID]
 	if !ok {
 		return answ, errors.New("there aren't events for this id, ERROR 400")
 	}
+	defer c.m.RUnlock()
 	for _, rec := range c.data[q.ID] {
 		if rec.MakeDate().Sub(q.Date) <= t {
 			answ = append(answ, rec)
